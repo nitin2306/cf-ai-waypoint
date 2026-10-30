@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-ai-waypoint",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"],
+  },
+  "ai": { "binding": "AI", "remote": true },
+  "durable_objects": {
+    "bindings": [
+      { "name": "LEARNING_SESSIONS", "class_name": "LearningSession" },
+    ],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["LearningSession"] }],
+  "vars": { "DEMO_MODE": "false" },
+  "observability": { "enabled": true },
+}
